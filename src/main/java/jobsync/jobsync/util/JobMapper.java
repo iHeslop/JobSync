@@ -18,7 +18,7 @@ public class JobMapper {
             TempDTO tempDTO = new TempDTO();
             tempDTO.setFirstName(job.getTemp().getFirstName());
             tempDTO.setLastName(job.getTemp().getLastName());
-            jobDTO.setTemp(tempDTO);
+            jobDTO.setTemp(job.getTemp());
         }
         return jobDTO;
     }

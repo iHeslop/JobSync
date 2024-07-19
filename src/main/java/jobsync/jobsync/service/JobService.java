@@ -1,6 +1,7 @@
 package jobsync.jobsync.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,5 +28,23 @@ public class JobService {
 
     public List<Job> getAllJobs() {
         return this.jobRepository.findAll();
+    }
+
+    public Optional<Job> updateById(Long id, JobDTO job) {
+        Optional<Job> maybeJob = this.jobRepository.findById(id);
+        if (maybeJob.isEmpty()) {
+            return maybeJob;
+        }
+        Job foundJob = maybeJob.get();
+        foundJob.setJobName(job.getJobName().trim());
+        foundJob.setStartDate(job.getStartDate());
+        foundJob.setEndDate(job.getEndDate());
+        foundJob.setTemp(job.getTemp());
+        Job updatedJob = this.jobRepository.save(foundJob);
+        return Optional.of(updatedJob);
+    }
+
+    public Optional<Job> getJobById(Long id) {
+        return this.jobRepository.findById(id);
     }
 }

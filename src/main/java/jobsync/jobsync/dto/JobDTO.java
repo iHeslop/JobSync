@@ -3,6 +3,7 @@ package jobsync.jobsync.dto;
 import java.sql.Date;
 
 import jakarta.validation.constraints.NotBlank;
+import jobsync.jobsync.model.Temp;
 
 public class JobDTO {
 
@@ -15,8 +16,7 @@ public class JobDTO {
     @NotBlank
     private Date endDate;
 
-    private TempDTO temp;
-
+    private Temp temp;
     // Getters
 
     public String getJobName() {
@@ -31,7 +31,7 @@ public class JobDTO {
         return endDate;
     }
 
-    public TempDTO getTemp() {
+    public Temp getTemp() {
         return temp;
     }
 
@@ -49,7 +49,7 @@ public class JobDTO {
         this.endDate = date;
     }
 
-    public void setTemp(TempDTO temp) {
+    public void setTemp(Temp temp) {
         this.temp = temp;
     }
 

@@ -4,11 +4,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import jobsync.jobsync.dto.JobDTO;
+import jobsync.jobsync.exceptions.NotFoundException;
 import jobsync.jobsync.exceptions.ServiceValidationException;
 import jobsync.jobsync.model.Job;
 import jobsync.jobsync.service.JobService;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,13 +55,18 @@ public class JobController {
     }
 
     @PatchMapping("/{id}")
-    public String updateJob(@PathVariable Long id, @Valid @RequestBody String data) {
-        return data;
+    public ResponseEntity<Job> updateJobById(@PathVariable Long id, @Valid @RequestBody JobDTO data)
+            throws NotFoundException {
+        Optional<Job> maybeJob = this.jobService.updateById(id, data);
+        Job updatedJob = maybeJob.orElseThrow(() -> new NotFoundException(Job.class, id));
+        return new ResponseEntity<>(updatedJob, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public String getJobById(@PathVariable Long id) {
-        return "Job Id";
+    public ResponseEntity<Job> getJobById(@PathVariable Long id) throws NotFoundException {
+        Optional<Job> maybeJob = this.jobService.getJobById(id);
+        Job foundJob = maybeJob.orElseThrow(() -> new NotFoundException(Job.class, id));
+        return new ResponseEntity<>(foundJob, HttpStatus.OK);
     }
 
 }
