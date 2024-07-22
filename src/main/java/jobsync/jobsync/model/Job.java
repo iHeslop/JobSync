@@ -1,6 +1,6 @@
 package jobsync.jobsync.model;
 
-import java.sql.Date;
+import java.util.Date;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,7 +36,7 @@ public class Job {
         return id;
     }
 
-    public String getJobName() {
+    public String getName() {
         return name;
     }
 
@@ -54,7 +54,7 @@ public class Job {
 
     // Setters
 
-    public void setJobName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 

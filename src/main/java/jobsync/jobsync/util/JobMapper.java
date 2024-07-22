@@ -11,7 +11,7 @@ import jobsync.jobsync.model.Temp;
 public class JobMapper {
     public JobDTO toDTO(Job job) {
         JobDTO jobDTO = new JobDTO();
-        jobDTO.setJobName(job.getJobName());
+        jobDTO.setName(job.getName());
         jobDTO.setStartDate(job.getStartDate());
         jobDTO.setEndDate(job.getEndDate());
         if (job.getTemp() != null) {
@@ -25,7 +25,7 @@ public class JobMapper {
 
     public Job toEntity(JobDTO jobDTO) {
         Job job = new Job();
-        job.setJobName(jobDTO.getJobName());
+        job.setName(jobDTO.getName());
         job.setStartDate(jobDTO.getStartDate());
         job.setEndDate(jobDTO.getEndDate());
         if (jobDTO.getTemp() != null) {

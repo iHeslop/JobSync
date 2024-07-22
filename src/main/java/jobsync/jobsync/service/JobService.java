@@ -20,7 +20,7 @@ public class JobService {
 
     public Job createJob(JobDTO job) throws ServiceValidationException {
         Job newJob = new Job();
-        newJob.setJobName(job.getJobName().trim());
+        newJob.setName(job.getName().trim());
         newJob.setStartDate(job.getStartDate());
         newJob.setEndDate(job.getEndDate());
         return this.jobRepository.save(newJob);
@@ -36,7 +36,7 @@ public class JobService {
             return maybeJob;
         }
         Job foundJob = maybeJob.get();
-        foundJob.setJobName(job.getJobName().trim());
+        foundJob.setName(job.getName().trim());
         foundJob.setStartDate(job.getStartDate());
         foundJob.setEndDate(job.getEndDate());
         foundJob.setTemp(job.getTemp());

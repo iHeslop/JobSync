@@ -37,11 +37,6 @@ public class JobController {
         return new ResponseEntity<>(allJobs, HttpStatus.OK);
     }
 
-    @GetMapping(params = "assigned")
-    public String getJobsByAssigned(@RequestParam Boolean assigned) {
-        return "Assigned Jobs";
-    }
-
     @PostMapping()
     public ResponseEntity<Job> createJob(@Valid @RequestBody JobDTO data) throws BadRequestException {
         Job createdJob;
@@ -67,6 +62,11 @@ public class JobController {
         Optional<Job> maybeJob = this.jobService.getJobById(id);
         Job foundJob = maybeJob.orElseThrow(() -> new NotFoundException(Job.class, id));
         return new ResponseEntity<>(foundJob, HttpStatus.OK);
+    }
+
+    @GetMapping(params = "assigned")
+    public String getJobsByAssigned(@RequestParam Boolean assigned) {
+        return "Assigned Jobs";
     }
 
 }
