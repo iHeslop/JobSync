@@ -24,7 +24,7 @@ public class TempDTO {
         return lastName;
     }
 
-    public List<JobDTO> getAllJobs() {
+    public List<JobDTO> getJobs() {
         return jobs;
     }
 

@@ -18,6 +18,7 @@ public class JobDTO {
     private Date endDate;
 
     private Temp temp;
+
     // Getters
 
     public String getName() {

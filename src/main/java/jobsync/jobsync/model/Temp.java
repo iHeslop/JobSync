@@ -38,7 +38,7 @@ public class Temp {
         return lastName;
     }
 
-    public List<Job> getAllJobs() {
+    public List<Job> getJobs() {
         return jobs;
     }
 
