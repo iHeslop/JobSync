@@ -2,14 +2,14 @@ package jobsync.jobsync.dto;
 
 import java.util.List;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
-public class CreateTempDTO {
+public class UpdateTempDTO {
 
-    @NotBlank
+    @Pattern(regexp = ".*\\S.*", message = "First name cannot be empty")
     private String firstName;
 
-    @NotBlank
+    @Pattern(regexp = ".*\\S.*", message = "First name cannot be empty")
     private String lastName;
 
     private List<Long> jobIds;
