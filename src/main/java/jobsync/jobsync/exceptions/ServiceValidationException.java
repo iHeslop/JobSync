@@ -6,7 +6,7 @@ import java.util.Map;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class ServiceValidationException extends Exception {
+public class ServiceValidationException extends RuntimeException {
     private ValidationErrors errors;
 
     public ServiceValidationException(ValidationErrors errors) {

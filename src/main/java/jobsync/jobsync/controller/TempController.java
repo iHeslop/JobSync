@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.validation.Valid;
-import jobsync.jobsync.dto.TempDTO;
+import jobsync.jobsync.dto.CreateTempDTO;
 import jobsync.jobsync.exceptions.ServiceValidationException;
 import jobsync.jobsync.model.Temp;
 import jobsync.jobsync.service.TempService;
@@ -33,7 +33,7 @@ public class TempController {
     }
 
     @PostMapping()
-    public ResponseEntity<Temp> createJob(@Valid @RequestBody TempDTO data) throws BadRequestException {
+    public ResponseEntity<Temp> createJob(@Valid @RequestBody CreateTempDTO data) throws BadRequestException {
         Temp createdTemp;
         try {
             createdTemp = this.tempService.createTemp(data);

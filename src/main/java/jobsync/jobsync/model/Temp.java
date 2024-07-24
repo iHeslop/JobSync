@@ -2,6 +2,8 @@ package jobsync.jobsync.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,6 +22,7 @@ public class Temp {
     private String lastName;
 
     @OneToMany(mappedBy = "temp")
+    @JsonIgnoreProperties("temp")
     private List<Job> jobs;
 
     public Temp() {

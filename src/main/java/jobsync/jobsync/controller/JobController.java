@@ -3,7 +3,8 @@ package jobsync.jobsync.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
-import jobsync.jobsync.dto.JobDTO;
+import jobsync.jobsync.dto.CreateJobDTO;
+import jobsync.jobsync.dto.UpdateJobDTO;
 import jobsync.jobsync.exceptions.NotFoundException;
 import jobsync.jobsync.exceptions.ServiceValidationException;
 import jobsync.jobsync.model.Job;
@@ -38,7 +39,7 @@ public class JobController {
     }
 
     @PostMapping()
-    public ResponseEntity<Job> createJob(@Valid @RequestBody JobDTO data) throws BadRequestException {
+    public ResponseEntity<Job> createJob(@Valid @RequestBody CreateJobDTO data) throws BadRequestException {
         Job createdJob;
         try {
             createdJob = this.jobService.createJob(data);
@@ -50,8 +51,7 @@ public class JobController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Job> updateJobById(@PathVariable Long id, @Valid @RequestBody JobDTO data)
-            throws NotFoundException {
+    public ResponseEntity<Job> updateJobById(@PathVariable Long id, @Valid @RequestBody UpdateJobDTO data) {
         Optional<Job> maybeJob = this.jobService.updateById(id, data);
         Job updatedJob = maybeJob.orElseThrow(() -> new NotFoundException(Job.class, id));
         return new ResponseEntity<>(updatedJob, HttpStatus.OK);

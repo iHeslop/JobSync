@@ -3,13 +3,17 @@ package jobsync.jobsync.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
-import jobsync.jobsync.dto.JobDTO;
+import jobsync.jobsync.dto.CreateJobDTO;
+import jobsync.jobsync.dto.UpdateJobDTO;
 import jobsync.jobsync.exceptions.ServiceValidationException;
+import jobsync.jobsync.exceptions.ValidationErrors;
 import jobsync.jobsync.model.Job;
+import jobsync.jobsync.model.Temp;
 import jobsync.jobsync.repository.JobRepository;
 
 @Service
@@ -18,11 +22,14 @@ public class JobService {
     @Autowired
     private JobRepository jobRepository;
 
-    public Job createJob(JobDTO job) throws ServiceValidationException {
-        Job newJob = new Job();
-        newJob.setName(job.getName().trim());
-        newJob.setStartDate(job.getStartDate());
-        newJob.setEndDate(job.getEndDate());
+    @Autowired
+    private TempService tempService;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+    public Job createJob(CreateJobDTO jobDTO) throws ServiceValidationException {
+        Job newJob = modelMapper.map(jobDTO, Job.class);
         return this.jobRepository.save(newJob);
     }
 
@@ -30,16 +37,29 @@ public class JobService {
         return this.jobRepository.findAll();
     }
 
-    public Optional<Job> updateById(Long id, JobDTO job) {
+    public Optional<Job> updateById(Long id, UpdateJobDTO jobDTO) throws ServiceValidationException {
         Optional<Job> maybeJob = this.jobRepository.findById(id);
         if (maybeJob.isEmpty()) {
             return maybeJob;
         }
         Job foundJob = maybeJob.get();
-        foundJob.setName(job.getName().trim());
-        foundJob.setStartDate(job.getStartDate());
-        foundJob.setEndDate(job.getEndDate());
-        foundJob.setTemp(job.getTemp());
+        modelMapper.map(jobDTO, foundJob);
+        ValidationErrors errors = new ValidationErrors();
+        if (jobDTO.getTempId() != null) {
+            Optional<Temp> maybeTemp = tempService.getTempById(jobDTO.getTempId());
+            if (maybeTemp.isPresent()) {
+                foundJob.setTemp(maybeTemp.get());
+            } else {
+                errors.addError("temp", "Temp with ID " + jobDTO.getTempId() + " does not exist.");
+            }
+        } else {
+            foundJob.setTemp(null);
+        }
+
+        if (errors.hasErrors()) {
+            throw new ServiceValidationException(errors);
+        }
+
         Job updatedJob = this.jobRepository.save(foundJob);
         return Optional.of(updatedJob);
     }

@@ -4,9 +4,8 @@ import java.util.Date;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jobsync.jobsync.model.Temp;
 
-public class JobDTO {
+public class CreateJobDTO {
 
     @NotBlank
     private String name;
@@ -17,7 +16,7 @@ public class JobDTO {
     @NotNull
     private Date endDate;
 
-    private Temp temp;
+    private Long tempId;
 
     // Getters
 
@@ -33,26 +32,7 @@ public class JobDTO {
         return endDate;
     }
 
-    public Temp getTemp() {
-        return temp;
+    public Long getTempId() {
+        return tempId;
     }
-
-    // Setters
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setStartDate(Date date) {
-        this.startDate = date;
-    }
-
-    public void setEndDate(Date date) {
-        this.endDate = date;
-    }
-
-    public void setTemp(Temp temp) {
-        this.temp = temp;
-    }
-
 }

@@ -4,7 +4,7 @@ import java.util.List;
 
 import jakarta.validation.constraints.NotBlank;
 
-public class TempDTO {
+public class CreateTempDTO {
 
     @NotBlank
     private String firstName;
@@ -12,7 +12,7 @@ public class TempDTO {
     @NotBlank
     private String lastName;
 
-    private List<JobDTO> jobs;
+    private List<CreateJobDTO> jobs;
 
     // Getters
 
@@ -24,7 +24,7 @@ public class TempDTO {
         return lastName;
     }
 
-    public List<JobDTO> getJobs() {
+    public List<CreateJobDTO> getJobs() {
         return jobs;
     }
 
@@ -38,7 +38,7 @@ public class TempDTO {
         this.lastName = name;
     }
 
-    public void setJobs(List<JobDTO> jobs) {
+    public void setJobs(List<CreateJobDTO> jobs) {
         this.jobs = jobs;
     }
 
