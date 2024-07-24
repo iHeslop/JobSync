@@ -15,7 +15,7 @@ You task is to build a Resourcing API using the Java Spring Boot framework, that
 
 - `POST /temps` - Create a temp - DONE
 - `GET /temps` - List all temps - DONE
-- `GET /temps?jobId={jobId}` - List temps that are available for a job based on the jobs date range 
+- `GET /temps?jobId={jobId}` - List temps that are available for a job based on the jobs date range - DONE
 - `GET /temps/{id}` - get temp by id (should also display jobs they've been assigned to) - DONE
 
 ## Payloads

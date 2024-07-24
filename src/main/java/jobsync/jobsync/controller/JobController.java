@@ -65,8 +65,9 @@ public class JobController {
     }
 
     @GetMapping(params = "assigned")
-    public List<Job> getJobsByAssigned(@RequestParam Boolean assigned) {
-        return jobService.getJobsByAssigned(assigned);
+    public ResponseEntity<List<Job>> getJobsByAssigned(@RequestParam Boolean assigned) {
+        List<Job> assignedJobs = this.jobService.getJobsByAssigned(assigned);
+        return new ResponseEntity<>(assignedJobs, HttpStatus.OK);
     }
 
 }

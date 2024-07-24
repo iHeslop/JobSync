@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.validation.Valid;
 import jobsync.jobsync.dto.CreateTempDTO;
@@ -44,5 +45,11 @@ public class TempController {
         Optional<Temp> maybeTemp = this.tempService.getTempById(id);
         Temp foundTemp = maybeTemp.orElseThrow(() -> new NotFoundException(Temp.class, id));
         return new ResponseEntity<>(foundTemp, HttpStatus.OK);
+    }
+
+    @GetMapping(params = "jobId")
+    public ResponseEntity<List<Temp>> getAvailableTemps(@RequestParam Long jobId) {
+        List<Temp> availableTemps = this.tempService.getAvailableTemps(jobId);
+        return new ResponseEntity<>(availableTemps, HttpStatus.OK);
     }
 }
