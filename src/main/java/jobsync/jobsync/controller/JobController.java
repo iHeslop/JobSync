@@ -65,8 +65,8 @@ public class JobController {
     }
 
     @GetMapping(params = "assigned")
-    public String getJobsByAssigned(@RequestParam Boolean assigned) {
-        return "Assigned Jobs";
+    public List<Job> getJobsByAssigned(@RequestParam Boolean assigned) {
+        return jobService.getJobsByAssigned(assigned);
     }
 
 }

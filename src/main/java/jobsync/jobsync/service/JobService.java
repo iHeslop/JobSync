@@ -67,4 +67,12 @@ public class JobService {
     public Optional<Job> getJobById(Long id) {
         return this.jobRepository.findById(id);
     }
+
+    public List<Job> getJobsByAssigned(Boolean assigned) {
+        if (assigned) {
+            return jobRepository.findByTempIsNotNull();
+        } else {
+            return jobRepository.findByTempIsNull();
+        }
+    }
 }

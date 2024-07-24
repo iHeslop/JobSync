@@ -9,7 +9,7 @@ You task is to build a Resourcing API using the Java Spring Boot framework, that
 - `POST /jobs` - Creates a job - DONE
 - `PATCH /jobs/{id}` - Updates job, endpoint should be used to assign temps to jobs - DONE
 - `GET /jobs` - Fetch all jobs - DONE
-- `GET /jobs?assigned={true|false}` - Filter by whether a job is assigned to a temp or not
+- `GET /jobs?assigned={true|false}` - Filter by whether a job is assigned to a temp or not - DONE
 - `GET /jobs/{id}` - (id, name, tempId, startDate, endDate) - DONE
 
 
