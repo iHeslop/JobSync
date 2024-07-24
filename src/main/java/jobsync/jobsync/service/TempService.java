@@ -3,6 +3,7 @@ package jobsync.jobsync.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +19,11 @@ public class TempService {
     @Autowired
     private TempRepository tempRepository;
 
-    public Temp createTemp(CreateTempDTO temp) throws ServiceValidationException {
-        Temp newTemp = new Temp();
-        newTemp.setFirstName(temp.getFirstName().trim());
-        newTemp.setLastName(temp.getLastName().trim());
+    @Autowired
+    private ModelMapper modelMapper;
+
+    public Temp createTemp(CreateTempDTO tempDTO) throws ServiceValidationException {
+        Temp newTemp = modelMapper.map(tempDTO, Temp.class);
         return this.tempRepository.save(newTemp);
     }
 

@@ -3,7 +3,6 @@ package jobsync.jobsync.controller;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jakarta.validation.Valid;
 import jobsync.jobsync.dto.CreateTempDTO;
 import jobsync.jobsync.exceptions.NotFoundException;
-import jobsync.jobsync.exceptions.ServiceValidationException;
 import jobsync.jobsync.model.Temp;
 import jobsync.jobsync.service.TempService;
 
@@ -36,15 +34,9 @@ public class TempController {
     }
 
     @PostMapping()
-    public ResponseEntity<Temp> createTemp(@Valid @RequestBody CreateTempDTO data) throws BadRequestException {
-        Temp createdTemp;
-        try {
-            createdTemp = this.tempService.createTemp(data);
-            return new ResponseEntity<>(createdTemp, HttpStatus.CREATED);
-        } catch (ServiceValidationException e) {
-            e.printStackTrace();
-            throw new BadRequestException(e.generateMessage());
-        }
+    public ResponseEntity<Temp> createTemp(@Valid @RequestBody CreateTempDTO data) {
+        Temp createdTemp = this.tempService.createTemp(data);
+        return new ResponseEntity<>(createdTemp, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
